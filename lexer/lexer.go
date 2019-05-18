@@ -12,6 +12,7 @@ type Lexer struct {
 	ch           byte // Analyzing charactor
 }
 
+// New makes new lexical analyzer
 func New(input string) *Lexer {
 	l := &Lexer{input: input}
 	l.readChar() // Initialize lexer
@@ -28,6 +29,7 @@ func (l *Lexer) readChar() {
 	l.readPosition++
 }
 
+// NextToken analyzes next token
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
