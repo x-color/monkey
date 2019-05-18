@@ -1,6 +1,6 @@
 package token
 
-// TokenType is token type (literal, valiable or operator ..)
+// TokenType is token type (literal, variable or operator ..)
 type TokenType string
 
 // Token has token info
