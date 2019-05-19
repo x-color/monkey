@@ -63,7 +63,7 @@ type Identifier struct {
 	Value string
 }
 
-func expressionNode() {
+func (i *Identifier) expressionNode() {
 
 }
 
