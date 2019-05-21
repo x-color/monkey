@@ -116,7 +116,7 @@ type ExpressionStatement struct {
 	Expression Expression
 }
 
-func (es *ExpressionStatement) expressionNode() {
+func (es *ExpressionStatement) statementNode() {
 
 }
 
