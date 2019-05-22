@@ -151,3 +151,23 @@ func (i *Identifier) TokenLiteral() string {
 func (i *Identifier) String() string {
 	return i.Value
 }
+
+// IntegerLiteral is integer literal node in AST
+type IntegerLiteral struct {
+	Token token.Token
+	Value int64
+}
+
+func (il *IntegerLiteral) expressionNode() {
+
+}
+
+// TokenLiteral returns integer literal name
+func (il *IntegerLiteral) TokenLiteral() string {
+	return il.Token.Literal
+}
+
+// String returns integer literal name
+func (il *IntegerLiteral) String() string {
+	return il.Token.Literal
+}
