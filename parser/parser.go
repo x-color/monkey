@@ -97,7 +97,7 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 		return nil
 	}
 
-	if !p.curTokenIs(token.Semicolon) {
+	for !p.curTokenIs(token.Semicolon) {
 		p.nextToken()
 	}
 
@@ -108,7 +108,7 @@ func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
 	stmt := &ast.ReturnStatement{Token: p.curToken}
 
 	p.nextToken()
-	if !p.curTokenIs(token.Semicolon) {
+	for !p.curTokenIs(token.Semicolon) {
 		p.nextToken()
 	}
 
