@@ -9,13 +9,13 @@ type Token struct {
 	Literal string
 }
 
+// Token types
 const (
-	Illegal = "ILLEGAL"
-	Eof     = "EOF"
+	Illegal = "ILLEGAL" // Illegal
+	Eof     = "EOF"     // End of file
 
-	// variable, literal
-	Ident = "IDENT"
-	Int   = "INT"
+	Ident = "IDENT" // Variable
+	Int   = "INT"   // Integer literal
 
 	// operators
 	Assign   = "="

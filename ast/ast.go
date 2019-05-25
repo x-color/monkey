@@ -29,7 +29,7 @@ type Program struct {
 	Statements []Statement
 }
 
-// TokenLiteral returns current node's literal
+// TokenLiteral returns current node's token literal
 func (p *Program) TokenLiteral() string {
 	if len(p.Statements) > 0 {
 		return p.Statements[0].TokenLiteral()
@@ -37,7 +37,7 @@ func (p *Program) TokenLiteral() string {
 	return ""
 }
 
-// String returns all statements
+// String returns all statements string
 func (p *Program) String() string {
 	var out bytes.Buffer
 	for _, s := range p.Statements {
@@ -48,8 +48,8 @@ func (p *Program) String() string {
 
 // LetStatement is 'let' statement node in AST
 type LetStatement struct {
-	Token token.Token
-	Name  *Identifier
+	Token token.Token // 'let' token
+	Name  *Identifier // Variable token
 	Value Expression
 }
 
@@ -81,8 +81,8 @@ func (ls *LetStatement) String() string {
 
 // ReturnStatement is 'return' statement node in AST
 type ReturnStatement struct {
-	Token       token.Token
-	ReturnValue Expression
+	Token       token.Token // 'return' token
+	ReturnValue Expression  // Return expression
 }
 
 func (rs *ReturnStatement) statementNode() {
@@ -112,14 +112,15 @@ func (rs *ReturnStatement) String() string {
 
 // ExpressionStatement is expression node in AST
 type ExpressionStatement struct {
-	Token      token.Token
-	Expression Expression
+	Token      token.Token // First token of expression statement
+	Expression Expression  // Expression node
 }
 
 func (es *ExpressionStatement) statementNode() {
 
 }
 
+// TokenLiteral returns first token of expression statement
 func (es *ExpressionStatement) TokenLiteral() string {
 	return es.Token.Literal
 }
@@ -134,8 +135,8 @@ func (es *ExpressionStatement) String() string {
 
 // Identifier is variable node in AST
 type Identifier struct {
-	Token token.Token
-	Value string
+	Token token.Token // Variable token
+	Value string      // Variable name
 }
 
 func (i *Identifier) expressionNode() {
@@ -154,36 +155,36 @@ func (i *Identifier) String() string {
 
 // IntegerLiteral is integer literal node in AST
 type IntegerLiteral struct {
-	Token token.Token
-	Value int64
+	Token token.Token // Integer literal token
+	Value int64       // Integer literal value
 }
 
 func (il *IntegerLiteral) expressionNode() {
 
 }
 
-// TokenLiteral returns integer literal name
+// TokenLiteral returns integer literal value
 func (il *IntegerLiteral) TokenLiteral() string {
 	return il.Token.Literal
 }
 
-// String returns integer literal name
+// String returns integer literal value
 func (il *IntegerLiteral) String() string {
 	return il.Token.Literal
 }
 
 // PrefixExpression is prefix expression node in AST
 type PrefixExpression struct {
-	Token    token.Token
-	Operator string
-	Right    Expression
+	Token    token.Token // Prefix operator token
+	Operator string      // Prefix operator
+	Right    Expression  // Expression after prefix operator
 }
 
 func (pe *PrefixExpression) expressionNode() {
 
 }
 
-// TokenLiteral returns value after prefix expression
+// TokenLiteral returns prefix operator
 func (pe *PrefixExpression) TokenLiteral() string {
 	return pe.Token.Literal
 }
@@ -200,22 +201,22 @@ func (pe *PrefixExpression) String() string {
 
 // InfixExpression is infix expression node in AST
 type InfixExpression struct {
-	Token    token.Token
-	Left     Expression
-	Operator string
-	Right    Expression
+	Token    token.Token // Infix operator token
+	Left     Expression  // Expression before infix operator
+	Operator string      // Infix operator
+	Right    Expression  // Expression after infix operator
 }
 
 func (oe *InfixExpression) expressionNode() {
 
 }
 
-// TokenLiteral returns infix expression
+// TokenLiteral returns infix operator
 func (oe *InfixExpression) TokenLiteral() string {
 	return oe.Token.Literal
 }
 
-// String returns infix expression string
+// String returns infix expression
 func (oe *InfixExpression) String() string {
 	var out bytes.Buffer
 	out.WriteString("(")

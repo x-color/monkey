@@ -28,13 +28,14 @@ var precedences = map[token.TokenType]int{
 // Parser is program parser
 type Parser struct {
 	l              *lexer.Lexer
-	curToken       token.Token
-	peekToken      token.Token
-	errors         []string
+	curToken       token.Token // Current parsing token
+	peekToken      token.Token // Next parsed token
+	errors         []string    // Parsing error list
 	prefixParseFns map[token.TokenType]prefixParseFn
 	infixParseFns  map[token.TokenType]infixParseFn
 }
 
+// Precedence of operators
 const (
 	_ int = iota
 	Lowest
