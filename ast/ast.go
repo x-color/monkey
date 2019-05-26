@@ -133,6 +133,32 @@ func (es *ExpressionStatement) String() string {
 	return ""
 }
 
+// BlockStatement is block statement({...}) node in AST
+type BlockStatement struct {
+	Token      token.Token
+	Statements []Statement
+}
+
+func (bs *BlockStatement) statementNode() {
+
+}
+
+// TODO: Add comment
+func (bs *BlockStatement) TokenLiteral() string {
+	return bs.Token.Literal
+}
+
+// String returns all statements in block statement
+func (bs *BlockStatement) String() string {
+	var out bytes.Buffer
+
+	for _, s := range bs.Statements {
+		out.WriteString(s.String())
+	}
+
+	return out.String()
+}
+
 // Identifier is variable node in AST
 type Identifier struct {
 	Token token.Token // Variable token
@@ -245,4 +271,38 @@ func (b *Boolean) TokenLiteral() string {
 // String returns boolean literal ('true' or 'false')
 func (b *Boolean) String() string {
 	return b.Token.Literal
+}
+
+// IfExpression is 'if-else' expression node in AST
+type IfExpression struct {
+	Token       token.Token
+	Condition   Expression
+	Consequence *BlockStatement
+	Alternative *BlockStatement
+}
+
+func (ie *IfExpression) expressionNode() {
+
+}
+
+// TokenLiteral returns 'if'
+func (ie *IfExpression) TokenLiteral() string {
+	return ie.Token.Literal
+}
+
+// String returns 'if-else' expression
+func (ie *IfExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("if")
+	out.WriteString(ie.Condition.String())
+	out.WriteString(" ")
+	out.WriteString(ie.Consequence.String())
+
+	if ie.Alternative != nil {
+		out.WriteString(" ")
+		out.WriteString(ie.Alternative.String())
+	}
+
+	return out.String()
 }
