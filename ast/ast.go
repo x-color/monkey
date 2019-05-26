@@ -226,3 +226,23 @@ func (oe *InfixExpression) String() string {
 	out.WriteString(")")
 	return out.String()
 }
+
+// Boolean is boolean node in AST
+type Boolean struct {
+	Token token.Token
+	Value bool
+}
+
+func (b *Boolean) expressionNode() {
+
+}
+
+// TokenLiteral returns boolean literal ('true' or 'false')
+func (b *Boolean) TokenLiteral() string {
+	return b.Token.Literal
+}
+
+// String returns boolean literal ('true' or 'false')
+func (b *Boolean) String() string {
+	return b.Token.Literal
+}
