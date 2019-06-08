@@ -7,6 +7,7 @@ import (
 
 	"github.com/x-color/monkey/lexer"
 	"github.com/x-color/monkey/parser"
+	"github.com/x-color/monkey/evaluator"
 )
 
 const prompt = ">> "
@@ -29,8 +30,11 @@ func Start(in io.Reader, out io.Writer) {
 			continue
 		}
 
-		io.WriteString(out, program.String())
-		io.WriteString(out, "\n")
+		evaluated := evaluator.Eval(program)
+		if evaluated != nil {
+			io.WriteString(out, program.String())
+			io.WriteString(out, "\n")
+		}
 	}
 }
 
