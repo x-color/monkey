@@ -10,6 +10,7 @@ const (
 	IntegerObj = "INTEGER"
 	BooleanObj = "BOOLEAN"
 	NullObj    = "NULL"
+	ReturnValueObj = "RETURN_VALUE"
 )
 
 // Object is object interface
@@ -60,4 +61,19 @@ func (n *Null) Type() ObjectType {
 // Inspect returns null value
 func (n *Null) Inspect() string {
 	return "null"
+}
+
+// ReturnValue is returned value object by 'return' statement
+type ReturnValue struct {
+	Value Object
+}
+
+// Type returns 'RETURN_VALUE'
+func (rv *ReturnValue) Type() ObjectType {
+	return ReturnValueObj
+}
+
+// Inspect returns value of returned value by 'return' statement
+func (rv *ReturnValue) Inspect() string {
+	return rv.Value.Inspect()
 }
