@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/x-color/monkey/lexer"
-	"github.com/x-color/monkey/parser"
 	"github.com/x-color/monkey/evaluator"
+	"github.com/x-color/monkey/lexer"
+	"github.com/x-color/monkey/object"
+	"github.com/x-color/monkey/parser"
 )
 
 const prompt = ">> "
@@ -15,6 +16,8 @@ const prompt = ">> "
 // Start starts monkey programing language prompt
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
+	env := object.NewEnvironment()
+
 	for {
 		fmt.Print(prompt)
 		if !scanner.Scan() {
@@ -30,7 +33,7 @@ func Start(in io.Reader, out io.Writer) {
 			continue
 		}
 
-		evaluated := evaluator.Eval(program)
+		evaluated := evaluator.Eval(program, env)
 		if evaluated != nil {
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out, "\n")
