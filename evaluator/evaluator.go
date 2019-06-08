@@ -5,8 +5,9 @@ import (
 	"github.com/x-color/monkey/object"
 )
 
-// Constant boolean objects
+// Constant boolean and null objects
 var (
+	Null = &object.Null{}
 	True = &object.Boolean{Value: true}
 	False = &object.Boolean{Value: false}
 )
