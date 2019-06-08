@@ -308,24 +308,24 @@ func (ie *IfExpression) String() string {
 	return out.String()
 }
 
-// FunctionalLiteral is function node in AST
-type FunctionalLiteral struct {
+// FunctionLiteral is function node in AST
+type FunctionLiteral struct {
 	Token      token.Token
 	Parameters []*Identifier
 	Body       *BlockStatement
 }
 
-func (fl *FunctionalLiteral) expressionNode() {
+func (fl *FunctionLiteral) expressionNode() {
 
 }
 
 // TokenLiteral returns 'fn'
-func (fl *FunctionalLiteral) TokenLiteral() string {
+func (fl *FunctionLiteral) TokenLiteral() string {
 	return fl.Token.Literal
 }
 
 // String returns function
-func (fl *FunctionalLiteral) String() string {
+func (fl *FunctionLiteral) String() string {
 	var out bytes.Buffer
 
 	params := []string{}
