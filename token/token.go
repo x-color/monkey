@@ -14,8 +14,9 @@ const (
 	Illegal = "ILLEGAL" // Illegal
 	Eof     = "EOF"     // End of file
 
-	Ident = "IDENT" // Variable
-	Int   = "INT"   // Integer literal
+	Ident  = "IDENT"  // Variable
+	Int    = "INT"    // Integer literal
+	String = "STRING" // String literal
 
 	// operators
 	Assign   = "="

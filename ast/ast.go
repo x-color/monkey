@@ -200,6 +200,26 @@ func (il *IntegerLiteral) String() string {
 	return il.Token.Literal
 }
 
+// StringLiteral is string literal node in AST
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
+func (sl *StringLiteral) expressionNode() {
+
+}
+
+// TokenLiteral returns string value
+func (sl *StringLiteral) TokenLiteral() string {
+	return sl.Token.Literal
+}
+
+// String returns string value
+func (sl *StringLiteral) String() string {
+	return sl.Token.Literal
+}
+
 // PrefixExpression is prefix expression node in AST
 type PrefixExpression struct {
 	Token    token.Token // Prefix operator token
