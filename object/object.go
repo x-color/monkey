@@ -11,6 +11,9 @@ import (
 // ObjectType is object type (int, bool, null)
 type ObjectType string
 
+// BuitinFunction is builtin function
+type BuiltinFunction func(args ...Object) Object
+
 // Object types
 const (
 	IntegerObj     = "INTEGER"
@@ -20,12 +23,28 @@ const (
 	ReturnValueObj = "RETURN_VALUE"
 	ErrorObj       = "ERROR"
 	FunctionObj    = "FUNCTION"
+	BuiltinObj     = "BUILTIN"
 )
 
 // Object is object interface
 type Object interface {
 	Type() ObjectType
 	Inspect() string
+}
+
+// Builtin is builtin function object
+type Builtin struct {
+	Fn BuiltinFunction
+}
+
+// Type returns 'BUILTIN'
+func (b *Builtin) Type() ObjectType {
+	return BuiltinObj
+}
+
+// Inspect returns 'builtin function'
+func (b *Builtin) Inspect() string {
+	return "builtin function"
 }
 
 // Integer is integer object
