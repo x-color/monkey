@@ -24,6 +24,7 @@ var precedences = map[token.TokenType]int{
 	token.Slash:    Product,
 	token.Asterisk: Product,
 	token.LParen:   Call,
+	token.LBracket: Index,
 }
 
 // Parser is program parser
@@ -46,6 +47,7 @@ const (
 	Product
 	Prefix
 	Call
+	Index
 )
 
 // New makes new parser
@@ -78,6 +80,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.Lt, p.parseInfixExpression)
 	p.registerInfix(token.Gt, p.parseInfixExpression)
 	p.registerInfix(token.LParen, p.parseCallExpression)
+	p.registerInfix(token.RBracket, p.parseIndexExpression)
 
 	p.nextToken()
 	p.nextToken()
@@ -381,6 +384,19 @@ func (p *Parser) parseExpressionList(end token.TokenType) []ast.Expression {
 	}
 
 	return list
+}
+
+func (p *Parser) parseIndexExpression(left ast.Expression) ast.Expression {
+	exp := &ast.IndexExpression{Token: p.curToken, Left: left}
+
+	p.nextToken()
+	exp.Index = p.parseExpression(Lowest)
+
+	if !p.expectPeek(token.RBracket) {
+		return nil
+	}
+
+	return exp
 }
 
 func (p *Parser) curTokenIs(t token.TokenType) bool {

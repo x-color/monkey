@@ -425,3 +425,32 @@ func (al *ArrayLiteral) String() string {
 
 	return out.String()
 }
+
+// IndexExpression is array node in AST
+type IndexExpression struct {
+	Token    token.Token
+	Left Expression
+	Index Expression
+}
+
+func (ie *IndexExpression) expressionNode() {
+
+}
+
+// TokenLiteral returns '['
+func (ie *IndexExpression) TokenLiteral() string {
+	return ie.Token.Literal
+}
+
+// String returns array & index
+func (ie *IndexExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("(")
+	out.WriteString(ie.Left.String())
+	out.WriteString("[")
+	out.WriteString(ie.Index.String())
+	out.WriteString("])")
+
+	return out.String()
+}
