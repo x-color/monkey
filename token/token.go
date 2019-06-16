@@ -35,10 +35,12 @@ const (
 	Semicolon = ";"
 
 	// branckets
-	LParen = "("
-	RParen = ")"
-	LBrace = "{"
-	RBrace = "}"
+	LParen   = "("
+	RParen   = ")"
+	LBrace   = "{"
+	RBrace   = "}"
+	LBracket = "["
+	RBracket = "]"
 
 	// keywords
 	Function = "FUNCTION"
