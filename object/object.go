@@ -11,7 +11,7 @@ import (
 // ObjectType is object type (int, bool, null)
 type ObjectType string
 
-// BuitinFunction is builtin function
+// BuiltinFunction is builtin function
 type BuiltinFunction func(args ...Object) Object
 
 // Object types
