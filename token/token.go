@@ -33,6 +33,7 @@ const (
 	// delimeters
 	Comma     = ","
 	Semicolon = ";"
+	Colon     = ":"
 
 	// branckets
 	LParen   = "("

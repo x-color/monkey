@@ -3,6 +3,7 @@ package object
 import (
 	"bytes"
 	"fmt"
+	"hash/fnv"
 	"strings"
 
 	"github.com/x-color/monkey/ast"
@@ -24,7 +25,8 @@ const (
 	ErrorObj       = "ERROR"
 	FunctionObj    = "FUNCTION"
 	BuiltinObj     = "BUILTIN"
-	ArrayObj 	   = "ARRAY"
+	ArrayObj       = "ARRAY"
+	HashObj        = "HASH"
 )
 
 // Object is object interface
@@ -190,6 +192,75 @@ func (ao *Array) Inspect() string {
 	out.WriteString("[")
 	out.WriteString(strings.Join(elements, ","))
 	out.WriteString("]")
+
+	return out.String()
+}
+
+// Hashable is hashable object's interface
+type Hashable interface {
+	HashKey() HashKey
+}
+
+// HashKey is key of associative array
+type HashKey struct {
+	Type  ObjectType
+	Value uint64
+}
+
+// HashKey returns key for boolean object
+func (b *Boolean) HashKey() HashKey {
+	var value uint64
+
+	if b.Value {
+		value = 1
+	} else {
+		value = 0
+	}
+
+	return HashKey{Type: b.Type(), Value: value}
+}
+
+// HashKey returns key for integer object
+func (i *Integer) HashKey() HashKey {
+	return HashKey{Type: i.Type(), Value: uint64(i.Value)}
+}
+
+// HashKey returns key for string object
+func (s *String) HashKey() HashKey {
+	h := fnv.New64a()
+	h.Write([]byte(s.Value))
+	return HashKey{Type: s.Type(), Value: h.Sum64()}
+}
+
+// HashPair is pair of key and value of associative array
+type HashPair struct {
+	Key   Object
+	Value Object
+}
+
+// Hash is associative array object
+type Hash struct {
+	Pairs map[HashKey]HashPair
+}
+
+// Type returns 'HASH'
+func (h *Hash) Type() ObjectType {
+	return HashObj
+}
+
+// Inspect returns associative array
+func (h *Hash) Inspect() string {
+	var out bytes.Buffer
+
+	pairs := []string{}
+	for _, pair := range h.Pairs {
+		pairs = append(pairs, fmt.Sprintf("%s: %s",
+			pair.Key.Inspect(), pair.Value.Inspect()))
+	}
+
+	out.WriteString("{")
+	out.WriteString(strings.Join(pairs, ", "))
+	out.WriteString("}")
 
 	return out.String()
 }
