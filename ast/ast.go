@@ -144,7 +144,7 @@ func (bs *BlockStatement) statementNode() {
 
 }
 
-// TODO: Add comment
+// TokenLiteral returns '{'
 func (bs *BlockStatement) TokenLiteral() string {
 	return bs.Token.Literal
 }
