@@ -1,9 +1,10 @@
-package repl
+package exec
 
 import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 
 	"strings"
 
@@ -18,8 +19,8 @@ const (
 	promptInBlock = ".. "
 )
 
-// Start starts monkey programing language prompt
-func Start(in io.Reader, out io.Writer) {
+// Repl starts monkey programing language prompt
+func Repl(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
 	env := object.NewEnvironment()
 
@@ -51,6 +52,25 @@ func Start(in io.Reader, out io.Writer) {
 			io.WriteString(out, "\n")
 		}
 	}
+}
+
+// ExecFile executes monkey programing language source file
+func ExecFile(fileName string, out io.Writer) {
+	bytes, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	code := string(bytes)
+
+	l := lexer.New(code)
+	p := parser.New(l)
+	program := p.ParseProgram()
+	if len(p.Errors()) != 0 {
+		printParseErrors(out, p.Errors())
+	}
+
+	evaluator.Eval(program, object.NewEnvironment())
 }
 
 func printParseErrors(out io.Writer, errors []string) {
