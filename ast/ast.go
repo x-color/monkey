@@ -485,3 +485,31 @@ func (hl *HashLiteral) String() string {
 
 	return out.String()
 }
+
+// WhileExpression is 'while' expression node in AST
+type WhileExpression struct {
+	Token       token.Token
+	Condition   Expression
+	Consequence *BlockStatement
+}
+
+func (we *WhileExpression) expressionNode() {
+
+}
+
+// TokenLiteral returns 'while'
+func (we *WhileExpression) TokenLiteral() string {
+	return we.Token.Literal
+}
+
+// String returns 'while' expression
+func (we *WhileExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("while")
+	out.WriteString(we.Condition.String())
+	out.WriteString(" ")
+	out.WriteString(we.Consequence.String())
+
+	return out.String()
+}
