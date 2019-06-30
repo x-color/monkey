@@ -5,13 +5,18 @@ import (
 	"fmt"
 	"io"
 
+	"strings"
+
 	"github.com/x-color/monkey/evaluator"
 	"github.com/x-color/monkey/lexer"
 	"github.com/x-color/monkey/object"
 	"github.com/x-color/monkey/parser"
 )
 
-const prompt = ">> "
+const (
+	prompt        = ">> "
+	promptInBlock = ".. "
+)
 
 // Start starts monkey programing language prompt
 func Start(in io.Reader, out io.Writer) {
@@ -24,6 +29,13 @@ func Start(in io.Reader, out io.Writer) {
 			return
 		}
 		line := scanner.Text()
+		for strings.Count(line, "{")-strings.Count(line, "}") > 0 {
+			fmt.Print(promptInBlock)
+			if !scanner.Scan() {
+				return
+			}
+			line += scanner.Text()
+		}
 		l := lexer.New(line)
 		p := parser.New(l)
 
