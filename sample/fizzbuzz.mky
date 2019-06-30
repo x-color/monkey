@@ -1,0 +1,30 @@
+let fizz = fn() {
+    return "Fizz";
+};
+
+let buzz = fn() {
+    return "Buzz";
+};
+
+let mod = fn(x, y) {
+    return x - (x / y) * y;
+};
+
+let i = 0;
+
+while (i < 50) {
+    let i = i + 1;
+    if (mod(i, 15) == 0) {
+        puts(fizz() + " " + buzz());
+    } else {
+        if (mod(i, 5) == 0) {
+            puts(fizz());
+        } else {
+            if (mod(i, 3) == 0) {
+                puts(buzz());
+            } else {
+                puts(i);
+            }
+        }
+    }
+}
