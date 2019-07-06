@@ -49,7 +49,7 @@ const (
 	True     = "TRUE"
 	False    = "FALSE"
 	If       = "IF"
-	While    = "While"
+	While    = "WHILE"
 	Else     = "ELSE"
 	Return   = "RETURN"
 )
